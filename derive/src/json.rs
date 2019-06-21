@@ -122,6 +122,7 @@ pub struct Argument {
 pub struct ConstructorEntry {
     #[serde(rename = "inputs")]
     pub arguments: Vec<Argument>,
+    pub payable: bool,
 }
 
 #[derive(Serialize, Debug)]
@@ -226,6 +227,9 @@ impl<'a> From<&'a items::Signature> for FunctionEntry {
 
 impl From<FunctionEntry> for ConstructorEntry {
     fn from(func: FunctionEntry) -> Self {
-        ConstructorEntry { arguments: func.arguments }
+        ConstructorEntry {
+            arguments: func.arguments,
+            payable: func.payable,
+        }
     }
 }
